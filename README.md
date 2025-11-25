@@ -35,3 +35,5 @@ class Hotel:
                 return
         
         print("✗ Không tìm thấy phòng!")
+
+        print()
