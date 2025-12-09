@@ -1,0 +1,58 @@
+# serializers.py
+
+from rest_framework import serializers
+from .models import KhachHang  # Thay bằng model của bạn
+
+class KhachHangSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = KhachHang  # Thay bằng model của bạn
+        fields = '__all__'  # Hoặc chỉ liệt kê các field cần thiết
+# views.py
+
+from rest_framework.generics import UpdateAPIView
+from .models import KhachHang  # Thay bằng model của bạn
+from .serializers import KhachHangSerializer  # Thay bằng serializer của bạn
+
+class KhachHangUpdateView(UpdateAPIView):
+    queryset = KhachHang.objects.all()  # Lọc các khách hàng
+    serializer_class = KhachHangSerializer
+
+    def get_object(self):
+        """Tùy chỉnh cách tìm kiếm đối tượng khách hàng theo ID."""
+        return self.get_queryset().get(pk=self.kwargs['pk'])
+# views.py
+
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .models import KhachHang  # Thay bằng model của bạn
+from .serializers import KhachHangSerializer  # Thay bằng serializer của bạn
+
+class KhachHangUpdateView(APIView):
+    def get_object(self, pk):
+        try:
+            return KhachHang.objects.get(pk=pk)
+        except KhachHang.DoesNotExist:
+            return None
+
+    def put(self, request, pk, format=None):
+        khach_hang = self.get_object(pk)
+        if not khach_hang:
+            return Response({'message': 'Khách hàng không tồn tại'}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = KhachHangSerializer(khach_hang, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def patch(self, request, pk, format=None):
+        khach_hang = self.get_object(pk)
+        if not khach_hang:
+            return Response({'message': 'Khách hàng không tồn tại'}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = KhachHangSerializer(khach_hang, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
