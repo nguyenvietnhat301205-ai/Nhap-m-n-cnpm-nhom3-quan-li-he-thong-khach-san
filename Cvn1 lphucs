@@ -1,0 +1,42 @@
+from django.db import models
+
+class Guest(models.Model):
+    """Mô hình lưu trữ thông tin Khách"""
+    GUEST_TYPE_CHOICES = [
+        ('VIP', 'VIP'),
+        ('REGULAR', 'Regular'),
+        ('EVENT', 'Event Guest'),
+    ]
+    name = models.CharField(max_length=200, verbose_name="Tên Khách")
+    phone_number = models.CharField(max_length=15, blank=True, null=True, verbose_name="Số điện thoại")
+    email = models.EmailField(unique=True, blank=True, null=True, verbose_name="Email")
+    guest_type = models.CharField(max_length=10, choices=GUEST_TYPE_CHOICES, default='REGULAR', verbose_name="Loại Khách")
+    is_active = models.BooleanField(default=True, verbose_name="Trạng thái Hoạt động")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Ngày tạo")
+
+    def __str__(self):
+        return self.name
+        
+    class Meta:
+        verbose_name = "Khách"
+        verbose_name_plural = "Khách hàng"
+
+
+class GuestActivityLog(models.Model):
+    """Mô hình lưu trữ Lịch sử Hoạt động của Khách"""
+    ACTION_CHOICES = [
+        ('CREATE', 'Tạo mới'),
+        ('UPDATE', 'Cập nhật'),
+        ('DELETE', 'Xóa'),
+    ]
+    guest = models.ForeignKey(Guest, on_delete=models.CASCADE, verbose_name="Khách bị ảnh hưởng")
+    action = models.CharField(max_length=10, choices=ACTION_CHOICES, verbose_name="Hành động")
+    timestamp = models.DateTimeField(auto_now_add=True, verbose_name="Thời gian")
+    details = models.TextField(blank=True, null=True, verbose_name="Chi tiết thay đổi")
+
+    def __str__(self):
+        return f"{self.action} - {self.guest.name}"
+        
+    class Meta:
+        verbose_name = "Lịch sử hoạt động"
+        verbose_name_plural = "Lịch sử hoạt động"
