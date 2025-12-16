@@ -1,0 +1,52 @@
+
+import sqlite3
+
+def connect_db():
+    """Kết nối CSDL"""
+    return sqlite3.connect("hotel.db")
+
+def verify_customer(cccd=None, phone=None):
+    """
+    Xác thực thông tin khách hàng
+    :param cccd: CCCD/CMND khách hàng
+    :param phone: Số điện thoại
+    """
+    if not cccd and not phone:
+        return "Vui lòng nhập CCCD hoặc số điện thoại!"
+
+    conn = connect_db()
+    cursor = conn.cursor()
+
+    if cccd:
+        query = """
+        SELECT * FROM KHACHHANG
+        WHERE cccd = ?
+        """
+        cursor.execute(query, (cccd,))
+    else:
+        query = """
+        SELECT * FROM KHACHHANG
+        WHERE sodienthoai = ?
+        """
+        cursor.execute(query, (phone,))
+
+    customer = cursor.fetchone()
+    conn.close()
+
+    if customer:
+        return {
+            "makh": customer[0],
+            "hoten": customer[1],
+            "cccd": customer[2],
+            "sodienthoai": customer[3],
+            "email": customer[4]
+        }
+    else:
+        return "Không tìm thấy khách hàng!"
+
+# ======================
+# Chạy thử
+# ======================
+if __name__ == "__main__":
+    result = verify_customer(cccd="123456789012")
+    print(result)
