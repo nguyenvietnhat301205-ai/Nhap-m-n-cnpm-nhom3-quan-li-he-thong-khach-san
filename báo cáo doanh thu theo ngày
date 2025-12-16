@@ -1,0 +1,25 @@
+from datetime import datetime
+from collections import defaultdict
+
+# ====== DỮ LIỆU MẪU ======
+sales = [
+    {"date": "2025-12-01", "amount": 1500000},
+    {"date": "2025-12-01", "amount": 2300000},
+    {"date": "2025-12-02", "amount": 1800000},
+    {"date": "2025-11-30", "amount": 1200000},
+    {"date": "2024-12-01", "amount": 2000000},
+]
+
+# ====== HÀM CHUYỂN CHUỖI NGÀY SANG DATETIME ======
+def parse_date(date_str):
+    return datetime.strptime(date_str, "%Y-%m-%d")
+
+# ====== BÁO CÁO THEO NGÀY ======
+def report_by_day(sales):
+    report = defaultdict(int)
+    for sale in sales:
+        report[sale["date"]] += sale["amount"]
+
+    print("\n📊 BÁO CÁO DOANH THU THEO NGÀY")
+    for date, total in sorted(report.items()):
+        print(f"Ngày {date}: {total:,} VND")
