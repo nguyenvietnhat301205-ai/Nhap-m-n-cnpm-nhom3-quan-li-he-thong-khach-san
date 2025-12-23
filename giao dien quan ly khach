@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Khách Hàng - Lễ Tân</title>
+    <style>
+        :root { --primary: #2c3e50; --secondary: #3498db; --danger: #e74c3c; --success: #27ae60; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f7f6; padding: 20px; color: var(--primary); }
+        .container { max-width: 900px; margin: auto; background: white; padding: 25px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h2 { text-align: center; color: var(--primary); }
+        
+        /* Form style */
+        .form-group { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+        input { padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; }
+        .btn-full { grid-column: span 2; padding: 12px; cursor: pointer; border: none; border-radius: 4px; font-weight: bold; transition: 0.3s; }
+        .btn-add { background: var(--secondary); color: white; }
+        .btn-add:hover { background: #2980b9; }
+
+        /* Table style */
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 12px; border-bottom: 1px solid #eee; text-align: left; }
+        th { background: #f8f9fa; }
+        .actions { display: flex; gap: 5px; }
+        button.edit { background: var(--success); color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; }
+        button.delete { background: var(--danger); color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>📋 QUẢN LÝ THÔNG TIN KHÁCH HÀNG</h2>
+    
+    <div class="form-group" id="customerForm">
+        <input type="hidden" id="customerId">
+        <input type="text" id="fullName" placeholder="Họ tên khách hàng *" required>
+        <input type="text" id="phone" placeholder="Số điện thoại *" required>
+        <input type="email" id="email" placeholder="Email">
+        <input type="text" id="address" placeholder="Địa chỉ">
+        <button class="btn-full btn-add" onclick="saveCustomer()" id="btnSave">Lưu Thông Tin Khách Hàng</button>
+    </div>
+
+    <hr>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Họ tên</th>
+                <th>SĐT</th>
+                <th>Email</th>
+                <th>Địa chỉ</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody id="customerTableBody">
+            </tbody>
+    </table>
+</div>
+
+<script>
+    let customers = JSON.parse(localStorage.getItem('customers')) || [];
+    let editIndex = -1;
+
+    // 1. Chức năng Hiển thị danh sách
+    function renderTable() {
+        const tbody = document.getElementById('customerTableBody');
+        tbody.innerHTML = '';
+        customers.forEach((customer, index) => {
+            tbody.innerHTML += `
+                <tr>
+                    <td>${customer.name}</td>
+                    <td>${customer.phone}</td>
+                    <td>${customer.email}</td>
+                    <td>${customer.address}</td>
+                    <td class="actions">
+                        <button class="edit" onclick="editCustomer(${index})">Sửa</button>
+                        <button class="delete" onclick="deleteCustomer(${index})">Xóa</button>
+                    </td>
+                </tr>
+            `;
+        });
+        localStorage.setItem('customers', JSON.stringify(customers));
+    }
+
+    // 2. Chức năng Thêm mới & Cập nhật
+    function saveCustomer() {
+        const name = document.getElementById('fullName').value;
+        const phone = document.getElementById('phone').value;
+        const email = document.getElementById('email').value;
+        const address = document.getElementById('address').value;
+
+        if(!name || !phone) { alert("Vui lòng nhập Họ tên và SĐT!"); return; }
+
+        const customerData = { name, phone, email, address };
+
+        if (editIndex === -1) {
+            // Thêm mới
+            customers.push(customerData);
+        } else {
+            // Cập nhật thông tin hiện có
+            customers[editIndex] = customerData;
+            editIndex = -1;
+            document.getElementById('btnSave').innerText = "Lưu Thông Tin Khách Hàng";
+            document.getElementById('btnSave').style.background = "#3498db";
+        }
+
+        clearForm();
+        renderTable();
+    }
+
+    // 3. Chức năng Đổ dữ liệu vào form để Sửa
+    function editCustomer(index) {
+        const customer = customers[index];
+        document.getElementById('fullName').value = customer.name;
+        document.getElementById('phone').value = customer.phone;
+        document.getElementById('email').value = customer.email;
+        document.getElementById('address').value = customer.address;
+        
+        editIndex = index;
+        document.getElementById('btnSave').innerText = "Xác Nhận Cập Nhật";
+        document.getElementById('btnSave').style.background = "#27ae60";
+        window.scrollTo(0, 0);
+    }
+
+    // 4. Chức năng Xóa (Có xác nhận)
+    function deleteCustomer(index) {
+        if (confirm("Bạn có chắc chắn muốn xóa khách hàng này khỏi hệ thống?")) {
+            customers.splice(index, 1);
+            renderTable();
+        }
+    }
+
+    function clearForm() {
+        document.getElementById('fullName').value = '';
+        document.getElementById('phone').value = '';
+        document.getElementById('email').value = '';
+        document.getElementById('address').value = '';
+    }
+
+    // Chạy lần đầu khi load trang
+    renderTable();
+</script>
+
+</body>
+</html>
