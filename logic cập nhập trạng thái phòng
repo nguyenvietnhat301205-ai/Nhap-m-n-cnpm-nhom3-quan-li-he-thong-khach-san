@@ -1,0 +1,63 @@
+// Dữ liệu mẫu (Giả lập Database)
+let rooms = [
+    { id: '101', type: 'Single', status: 'Trống' },
+    { id: '102', type: 'Double', status: 'Đã đặt' },
+    { id: '103', type: 'Suite', status: 'Đang sửa chữa' }
+];
+
+function renderRooms() {
+    const tbody = document.getElementById('roomTableBody');
+    tbody.innerHTML = '';
+    
+    rooms.forEach((room, index) => {
+        tbody.innerHTML += `
+            <tr>
+                <td><strong>${room.id}</strong></td>
+                <td>${room.type}</td>
+                <td><span class="status-badge ${getStatusClass(room.status)}">${room.status}</span></td>
+                <td>
+                    <select onchange="updateRoomStatus('${room.id}', this.value)">
+                        <option value="">-- Chọn trạng thái --</option>
+                        <option value="Trống">Trống</option>
+                        <option value="Đã đặt">Đã đặt</option>
+                        <option value="Đang sửa chữa">Đang sửa chữa</option>
+                    </select>
+                </td>
+            </tr>
+        `;
+    });
+}
+
+// Hàm cập nhật (Tương ứng file update_status.php bạn yêu cầu)
+function updateRoomStatus(roomId, newStatus) {
+    if (!newStatus) return;
+
+    // 1. Kiểm tra trạng thái hợp lệ
+    const validStatuses = ['Trống', 'Đã đặt', 'Đang sửa chữa'];
+    if (!validStatuses.includes(newStatus)) {
+        alert("Trạng thái không hợp lệ!");
+        return;
+    }
+
+    // 2. Cập nhật vào "Database" (mảng rooms)
+    const roomIndex = rooms.findIndex(r => r.id === roomId);
+    if (roomIndex !== -1) {
+        rooms[roomIndex].status = newStatus;
+        
+        // 3. Hiển thị thông báo kết quả
+        alert(`✅ Thành công: Phòng ${roomId} đã chuyển sang [${newStatus}]`);
+        
+        // 4. Làm mới danh sách phòng
+        renderRooms();
+    } else {
+        alert("❌ Lỗi: Phòng không tồn tại!");
+    }
+}
+
+function getStatusClass(status) {
+    if (status === 'Trống') return 'bg-success';
+    if (status === 'Đã đặt') return 'bg-danger';
+    return 'bg-warning';
+}
+
+renderRooms();
