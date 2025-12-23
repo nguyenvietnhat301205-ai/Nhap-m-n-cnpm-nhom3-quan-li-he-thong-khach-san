@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Kiểm tra phòng trống</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Kiểm tra phòng trống</h1>
+
+        <div class="filter-box">
+            <select id="roomType">
+                <option value="all">Tất cả loại phòng</option>
+                <option value="Standard">Phòng Standard</option>
+                <option value="VIP">Phòng VIP</option>
+            </select>
+
+            <input type="number" id="priceRange" placeholder="Giá tối đa (VNĐ)">
+            
+            <input type="date" id="checkIn" title="Ngày nhận">
+            <input type="date" id="checkOut" title="Ngày trả">
+
+            <button id="searchBtn">Tìm kiếm</button>
+        </div>
+
+        <div id="resultArea">
+            <ul id="roomList"></ul>
+            <p id="noRoomAlert" class="hidden">Rất tiếc, không có phòng nào trống!</p>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
