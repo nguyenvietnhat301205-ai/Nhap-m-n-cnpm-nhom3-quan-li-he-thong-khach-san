@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Traveling - Tìm khách sạn giá rẻ</title>
+  <link rel="stylesheet" href="Trangchukhachsan.css" />
+</head>
+
+<body>
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <div class="container topbar__row">
+      <div class="brand">
+        <div class="brand__logo">T</div>
+        <div class="brand__name">travel<span>demo</span></div>
+      </div>
+
+      <nav class="topnav">
+        <a href="#" class="topnav__link active">Khách sạn</a>
+        <a href="#" class="topnav__link">Vé máy bay</a>
+        <a href="#" class="topnav__link">Vé xe khách</a>
+        <a href="#" class="topnav__link">Đưa đón sân bay</a>
+        <a href="#" class="topnav__link">Cho thuê xe</a>
+        <a href="#" class="topnav__link">Hoạt động</a>
+        <a href="#" class="topnav__link">More ▾</a>
+      </nav>
+
+      <div class="topbar__actions">
+        <button class="btn btn--ghost">Đăng nhập</button>
+        <button class="btn btn--primary">Đăng ký</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- SEARCH BAR -->
+  <section class="searchbar">
+    <div class="container searchbar__row">
+      <div class="field">
+        <label>Điểm đến</label>
+        <div class="inputwrap">
+          <span class="icon">📍</span>
+          <input id="qCity" type="text" value="Đà Nẵng" placeholder="Nhập điểm đến..." />
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Ngày</label>
+        <div class="inputwrap">
+          <span class="icon">📅</span>
+          <input id="qFrom" type="date" />
+          <span class="sep">→</span>
+          <input id="qTo" type="date" />
+        </div>
+        <div class="hint" id="nightHint">Thời gian: 1 đêm</div>
+      </div>
+
+      <div class="field field--dropdown">
+        <label>Khách & phòng</label>
+        <button id="guestBtn" class="dropbtn" type="button">
+          <span class="icon">👤</span>
+          <span id="guestText">2 người lớn, 0 trẻ em, 1 phòng</span>
+          <span class="chev">▾</span>
+        </button>
+
+        <div id="guestPanel" class="panel hidden">
+          <div class="panel__row">
+            <div class="panel__label">
+              <div class="t1">Người lớn</div>
+              <div class="t2">Từ 12 tuổi</div>
+            </div>
+            <div class="stepper">
+              <button class="step" data-step="adult" data-dir="-">−</button>
+              <span id="adultVal">2</span>
+              <button class="step" data-step="adult" data-dir="+">+</button>
+            </div>
+          </div>
+
+          <div class="panel__row">
+            <div class="panel__label">
+              <div class="t1">Trẻ em</div>
+              <div class="t2">0–11 tuổi</div>
+            </div>
+            <div class="stepper">
+              <button class="step" data-step="child" data-dir="-">−</button>
+              <span id="childVal">0</span>
+              <button class="step" data-step="child" data-dir="+">+</button>
+            </div>
+          </div>
+
+          <div class="panel__row">
+            <div class="panel__label">
+              <div class="t1">Phòng</div>
+              <div class="t2">Số phòng</div>
+            </div>
+            <div class="stepper">
+              <button class="step" data-step="room" data-dir="-">−</button>
+              <span id="roomVal">1</span>
+              <button class="step" data-step="room" data-dir="+">+</button>
+            </div>
+          </div>
+
+          <div class="panel__actions">
+            <button id="guestApply" class="btn btn--primary" type="button">Xong</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="searchbar__cta">
+        <button id="searchBtn" class="btn btn--primary btn--big" type="button">
+          Tìm khách sạn 🔎
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN -->
+  <main class="container layout">
+    <!-- LEFT FILTERS -->
+    <aside class="sidebar">
+      <div class="mapbox">
+        <div class="mapbox__fake">
+          <div class="pin">📍</div>
+          <button class="btn btn--primary btn--pill">Explore on Map</button>
+        </div>
+      </div>
+
+      <section class="card">
+        <div class="card__head">
+          <h3>Khoảng giá</h3>
+          <button id="resetPrice" class="linkbtn" type="button">Đặt lại</button>
+        </div>
+
+        <div class="range">
+          <div class="range__row">
+            <input id="minPrice" type="range" min="0" max="5000000" step="50000" value="0" />
+            <input id="maxPrice" type="range" min="0" max="5000000" step="50000" value="5000000" />
+          </div>
+          <div class="range__labels">
+            <span id="minLabel">0 VND</span>
+            <span id="maxLabel">5.000.000 VND</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card__head">
+          <h3>Lọc phổ biến</h3>
+        </div>
+
+        <label class="check">
+          <input id="fBreakfast" type="checkbox" />
+          <span>Bao gồm bữa sáng</span>
+        </label>
+        <label class="check">
+          <input id="fFreeCancel" type="checkbox" />
+          <span>Miễn phí hủy</span>
+        </label>
+        <label class="check">
+          <input id="fTopRating" type="checkbox" />
+          <span>Điểm từ 8.0+</span>
+        </label>
+      </section>
+    </aside>
+
+    <!-- CONTENT -->
+    <section class="content">
+      <div class="content__top">
+        <div>
+          <h2 id="resultTitle">Đà Nẵng</h2>
+          <div class="sub" id="resultSub">Tìm thấy <b id="countFound">0</b> nơi lưu trú</div>
+        </div>
+
+        <div class="tools">
+          <div class="tool">
+            <span class="tool__label">Xếp theo:</span>
+            <select id="sortBy" class="select">
+              <option value="popular">Độ phổ biến</option>
+              <option value="priceAsc">Giá tăng dần</option>
+              <option value="priceDesc">Giá giảm dần</option>
+              <option value="ratingDesc">Điểm đánh giá cao</option>
+            </select>
+          </div>
+
+          <div class="tool">
+            <span class="tool__label">Xem:</span>
+            <div class="viewtoggle">
+              <button id="viewList" class="vt vt--active" type="button">≡</button>
+              <button id="viewGrid" class="vt" type="button">▦</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="notice">
+        <span class="notice__icon">✅</span>
+        <span>Đăng nhập/đăng ký để nhận ưu đãi và quản lý đặt chỗ dễ hơn.</span>
+        <a class="notice__link" href="#">Log In/Register</a>
+      </div>
+
+      <div id="hotelList" class="list list--list"></div>
+    </section>
+  </main>
+
+  <!-- MODAL -->
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal__overlay" id="modalOverlay"></div>
+    <div class="modal__box">
+      <div class="modal__head">
+        <h3 id="modalTitle">Chọn phòng</h3>
+        <button id="modalClose" class="iconbtn" type="button">✕</button>
+      </div>
+      <div class="modal__body" id="modalBody"></div>
+      <div class="modal__foot">
+        <button id="modalOk" class="btn btn--primary" type="button">Xác nhận</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="Trangchukhachsan.js"></script>
+</body>
+</html>

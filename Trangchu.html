@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hệ thống quản lí khách sạn </title>
+  <link rel="icon" href="assets/logo.jpg">
+  <link rel="stylesheet" href="Trangchu.css"/>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="GA HUẾ">
+      <img src="assets/logo.jpg" alt="Logo GA HUẾ" class="brand-logo"/>
+      <span class="brand-text">Khách sạn</span>
+    </a>
+    <nav class="nav">
+      <a href="index.html" class="active">Trang chủ</a>
+      <a href="Trangchukhachsan.html">Đặt vé</a>
+      <a href="giamgia.html">Khuyến mãi</a>
+      <a href="thongtin.html">Thông tin</a>
+      <a href="Login.html">Đăng nhập</a>
+      <a href="dangky.html" class="signup">Đăng ký</a>
+    </nav>
+  </header>
+
+<section class="hero">
+  <div class="slider" aria-label="Ảnh banner khách sạn">
+    <div class="slide is-active" style="background-image:url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1400&q=80')"></div>
+    <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1400&q=80')"></div>
+    <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1501117716987-c8e1ecb210b0?auto=format&fit=crop&w=1400&q=80')"></div>
+    <div class="dots" role="tablist"></div>
+  </div>
+
+  <div class="hero-inner">
+    <h1>Hệ thống quản lý khách sạn</h1>
+    <p>Đặt phòng nhanh chóng · Giá tốt mỗi ngày · Dịch vụ chuyên nghiệp</p>
+    <a href="Datve.html" class="btn-primary">Đặt phòng ngay</a>
+  </div>
+  <div class="hero-wave" aria-hidden="true"></div>
+</section>
+
+  <section class="highlights">
+  <div class="card" data-reveal style="--delay:0s">
+    <h3>Đặt vé siêu nhanh</h3>
+    <p>Chọn căn home yêu thích.</p>
+  </div>
+  <div class="card" data-reveal style="--delay:0.15s">
+    <h3>Hướng dẫn tour du lịch giá cả hợp lí</h3>
+    <p>Hướng dẫn và gợi ý cho hành khách các tour du lịch rẻ và tiện lợi.</p>
+  </div>
+  <div class="card" data-reveal style="--delay:0.3s">
+    <h3>Ưu đãi mỗi ngày</h3>
+    <p>Mã giảm giá riêng cho thành viên mới và khách hàng thân thiết.</p>
+  </div>
+</section>
+
+  <section class="about">
+    <h2>Về chúng tôi</h2>
+    <p>
+      Hệ thống quản lí khách sạn hỗ trợ khách hàng đặt vé tiện lợi và nhanh chóng,
+      mang đến trải nghiệm thông minh cùng nhiều ưu đãi giúp tiết kiệm thời gian và chi phí.
+    </p>
+  </section>
+<section class="quick-book" data-reveal>
+  <h2>Đặt phòng nhanh</h2>
+  <form id="quick-book">
+
+    <label>Thành phố / Khách sạn
+      <select id="location">
+        <option value="Hue">Huế</option>
+        <option value="DaNang">Đà Nẵng</option>
+        <option value="QuangBinh">Quảng Bình</option>
+        <option value="HaNoi">Hà Nội</option>
+      </select>
+    </label>
+
+    <label>Ngày nhận phòng
+      <input type="date" id="checkin" required>
+    </label>
+
+    <label>Ngày trả phòng
+      <input type="date" id="checkout" required>
+    </label>
+
+    <label>Số khách
+      <input type="number" id="guests" min="1" max="6" value="2" required>
+    </label>
+
+    <label>Loại phòng
+      <select id="room-type">
+        <option value="standard">Phòng tiêu chuẩn</option>
+        <option value="deluxe">Phòng cao cấp (Deluxe)</option>
+        <option value="suite">Phòng Suite</option>
+      </select>
+    </label>
+
+    <button type="submit" class="btn-primary">
+      Kiểm tra giá & đặt phòng
+    </button>
+  </form>
+
+  <div id="book-result" class="book-result" aria-live="polite"></div>
+</section>
+
+
+  <footer class="site-footer">
+    <p>© 2025 Hệ thống quản lí khách sạn — Tất cả quyền được bảo lưu.</p>
+  </footer>
+  <footer class="footer-container">
+  <div class="footer-section">
+    <h3>CÔNG TY CỔ PHẦN DỊCH VỤ KHÁCH SẠN</h3>
+    <p>♦ Mã số thuế: 0314401806</p>
+    <p>♦ Ngày cấp: 12/05/2017</p>
+    <p>♦ Nơi cấp: Sở Kế hoạch và Đầu tư TP Huế</p>
+    <p>♦ Giấy phép Lữ hành: Số GP: 79-0357/2-23/SDL-GP LHND</p>
+    <p>♦ Trụ sở chính: Số 1 Lê Lợi, TP Huế</p>
+    <p>♦ Phòng vé Đà Nẵng: 17 Mai Hắc Đế, Sơn Trà, Đà Nẵng</p>
+    <p>♦ Phòng vé Hà Nội: Số 9, Đinh Lễ, Hoàn Kiếm</p>
+  </div>
+
+  <div class="footer-section">
+    <h3>QUY ĐỊNH VÀ ĐIỀU KHOẢN</h3>
+    <p>♦ Hướng dẫn đặt vé</p>
+    <p>♦ Chính sách vận chuyển</p>
+    <p>♦ Chính Sách Đổi Trả & Hoàn Vé</p>
+    <p>♦ Chính sách bảo mật</p>
+    <p>♦ Chính sách & Quy định chung</p>
+    <p>♦ Hướng dẫn Thanh Toán</p>
+  </div>
+
+  <div class="footer-section contact">
+    <h3>LIÊN HỆ</h3>
+    <p>♦ Email: <a href="mailto:gahue@gmail.com">dichvukhachsan@gmail.com</a></p>
+    <p>♦ Điện thoại: 091 823 1843</p>
+    <div class="social">
+      <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook social media icon, blue lowercase f on white background" /></a>
+      <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/2504/2504727.png" alt="Zalo messaging app icon, white Z on blue background" /></a>
+    </div>
+    <img src="c:\Users\DAT NB3\Downloads\z7151261309175_ce9e426033d91a847a6e8c0091cb6562.jpg" alt="Zalo QR code for connecting with GA Hue railway station" class="qr">
+    </div>
+  </footer>
+  <div class="hotline">
+  <img src="https://cdn-icons-png.flaticon.com/512/724/724664.png" alt="Call">
+    <span>1900 1543</span>
+  </div>
+  <script src="Trangchu.js"></script>
+  </body>
+</html>
